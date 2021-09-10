@@ -1,7 +1,17 @@
+/*
+  This file is .scss instead of .sass because, in .sass, maps needs to be in one line.
+  since $colors map here is big and fitting it to one line would be a bad idea in terms 
+  of readability, I used the .scss here.
+*/
+
 // font-weight
 $light: 300;
 $medium: 400;
 $bold: 500;
+
+// other
+$bd-rs: 13px;
+$card-mobile-width: 91.173%;
 
 // font-family
 $font-primary: rubik, sans-serif;
