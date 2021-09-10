@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import IconEllipsis from "./icons/IconEllipsis.vue";
-// import { IData } from "../data/data";
+// import IData from "../data/data";
 
 interface ITime {
   current: number;
