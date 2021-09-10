@@ -1,0 +1,42 @@
+// font-weight
+$light: 300;
+$medium: 400;
+$bold: 500;
+
+// font-family
+$font-primary: rubik, sans-serif;
+
+// colors
+$colors: (
+  primary: (
+    "blue": hsl(246, 80%, 60%),
+    "softBlue": hsl(195, 74%, 62%),
+    "violet": hsl(264, 64%, 52%),
+    "limeGreen": hsl(145, 58%, 55%),
+    "softOrange": hsl(43, 84%, 65%),
+    "softRed": hsl(15, 100%, 70%),
+    "lightRed": hsl(348, 100%, 68%),
+  ),
+  neutral: (
+    "veryDarkBlue": hsl(226, 43%, 10%),
+    "darkBlue": hsl(235, 46%, 20%),
+    "desaturatedBlue": hsl(235, 45%, 61%),
+    "paleBlue": hsl(236, 100%, 87%),
+  ),
+);
+
+/*
+  Creates CSS Variables which has a formatted name and a color code as its value.
+  For example: it crates a variable like `--clr-primary-blue: hsl(246, 80%, 60%);`
+*/
+@mixin createCSSColorVariables($color-map) {
+  @each $color-type, $colors in $color-map {
+    @each $color-name, $color in $colors {
+      --clr-#{$color-type}-#{$color-name}: #{$color};
+    }
+  }
+}
+
+:root {
+  @include createCSSColorVariables($colors);
+}

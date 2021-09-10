@@ -1,27 +1,26 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-const count = ref(0)
+import { ref } from "vue";
+const count = ref(0);
 
 // defineProps<{ msg: string }>()
 
 interface Props {
-  msg: string
+  msg?: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  msg: 'Hello World!'
-})
+  msg: "Hello World!",
+});
 
 function increment() {
-  count.value++
+  count.value++;
 }
 </script>
 
 <template lang="pug">
 h1 {{ msg }}
 button(type="button" @click="increment") count is: {{ count }}
+p Hello there from the template!
 </template>
 
-<style scoped>
-
-</style>
+<style scoped lang="scss"></style>

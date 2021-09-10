@@ -1,0 +1,9 @@
+@use './abstracts.scss' as a;
+
+html {
+  font-size: 16px;
+  font-weight: a.$medium;
+  font-family: a.$font-primary;
+  color: var(--clr-neutral-paleBlue);
+  background-color: var(--clr-neutral-veryDarkBlue);
+}
