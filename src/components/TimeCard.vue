@@ -52,7 +52,7 @@ $primaryColors: a.map-deep-get(a.$colors, "primary")
 
 
 // Dynamically add background-image file path in user-card's ::before pseudo-element
-$time-card-bg-svgs: "work", "play", "study", "exercise", "social"
+$time-card-bg-svgs: "work", "play", "study", "exercise", "social", "self-care"
 
 @each $img-name in $time-card-bg-svgs
   $defaultPath: "/src/assets/images"
@@ -89,7 +89,7 @@ $time-card-bg-svgs: "work", "play", "study", "exercise", "social"
     padding: 25px 32px
 
   &:hover
-    background-color: #34397B
+    background-color: #2f3473
 
 
 .time-card-title-wrapper
@@ -101,7 +101,7 @@ $time-card-bg-svgs: "work", "play", "study", "exercise", "social"
 
 
 .time-card-title
-  // font-weight: a.$bold
+  font-weight: a.$bold
   font-size: 1.125rem
 
 

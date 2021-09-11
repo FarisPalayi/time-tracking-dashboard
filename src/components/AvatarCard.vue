@@ -71,11 +71,11 @@ $timeframe-section-min-height: 67px
   flex-direction: column
 
   @include a.desktop
-  font-size: 2.5rem
-  line-height: 1.285
-  font-weight: a.$light
-  margin-left: 2px
-  margin-top: -3px
+    font-size: 2.5rem
+    line-height: 1.285
+    font-weight: a.$light
+    margin-left: 2px
+    margin-top: -3px
 
   > .small
     font-size: .94rem

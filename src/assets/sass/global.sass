@@ -34,7 +34,7 @@ html
   max-width: 1110px
   display: grid
   justify-content: center
-  grid-template-columns: var(--card-mobile-width)
+  grid-template-columns: min(var(--card-mobile-width), 380px)
   gap: 30px
 
   @include a.desktop
