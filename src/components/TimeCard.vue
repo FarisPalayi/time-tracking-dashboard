@@ -85,6 +85,9 @@ $time-card-bg-svgs: "work", "play", "study", "exercise", "social"
   border-radius: a.$bd-rs a.$bd-rs 0 0
   transition: all 250ms
 
+  @include a.desktop
+    padding: 25px 32px
+
   &:hover
     background-color: #34397B
 
@@ -98,7 +101,7 @@ $time-card-bg-svgs: "work", "play", "study", "exercise", "social"
 
 
 .time-card-title
-  font-weight: a.$bold
+  // font-weight: a.$bold
   font-size: 1.125rem
 
 
@@ -112,11 +115,22 @@ $time-card-bg-svgs: "work", "play", "study", "exercise", "social"
   justify-content: space-between
   align-items: center
 
+  @include a.desktop
+    flex-direction: column
+    align-items: flex-start
+    margin-top: 11px
+
 
 .current-time
   font-size: 2rem
   font-weight: a.$light
 
+  @include a.desktop
+    font-size: 3.5rem
+
 .previous-time
   font-size: .9rem
+
+  @include a.desktop
+    font-size: .95rem
 </style>

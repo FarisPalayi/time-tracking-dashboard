@@ -19,10 +19,14 @@ html
 
 
 #app 
-  padding: 81px 10px
-  padding-bottom: 60px
   display: grid
   place-items: center
+  padding: 81px 10px
+  padding-bottom: 60px
+  min-height: 100vh
+
+  @include a.desktop
+    padding: 0
 
 
 #app > main 
@@ -40,10 +44,6 @@ html
 
 h1
   font-weight: a.$medium
-
-
-img
-  max-width: none
 
 
 .grid-center

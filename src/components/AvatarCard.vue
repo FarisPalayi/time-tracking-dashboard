@@ -1,14 +1,15 @@
 <script setup lang="ts">
 const setActive = (e: Event) => {
   const activeClass = "active";
-  const clickedElm = e.target as HTMLLIElement;
-  const parentElm = clickedElm?.parentElement as HTMLUListElement;
-  const childrenCount = parentElm.childElementCount;
+  const clickedElm = e.target as HTMLButtonElement;
+  const parentElm = clickedElm?.parentElement
+    ?.parentElement as HTMLUListElement;
+  const childrenCount = parentElm?.childElementCount;
 
   for (let i = 0; i < childrenCount; i++)
-    parentElm.children[i].classList.remove(activeClass);
+    parentElm?.children[i]?.firstElementChild?.classList.remove(activeClass);
 
-  clickedElm.classList.add(activeClass);
+  clickedElm?.classList.add(activeClass);
 };
 </script>
 
@@ -24,12 +25,12 @@ section.user-card
       span Jeremy Robson
   .timeframes
     ul.timeframes-list
-      li.timeframes-item.grid-center(@click="setActive")
-        button.btn Daily
-      li.timeframes-item.grid-center.active(@click="setActive")
-        button.btn Weekly
-      li.timeframes-item.grid-center(@click="setActive")
-        button.btn Monthly
+      li.timeframes-item.grid-center
+        button.btn(@click="setActive") Daily
+      li.timeframes-item.grid-center
+        button.btn.active(@click="setActive") Weekly
+      li.timeframes-item.grid-center
+        button.btn(@click="setActive") Monthly
 </template>
 
 <style scoped lang="sass">
@@ -70,7 +71,11 @@ $timeframe-section-min-height: 67px
   flex-direction: column
 
   @include a.desktop
-    font-size: 2rem
+  font-size: 2.5rem
+  line-height: 1.285
+  font-weight: a.$light
+  margin-left: 2px
+  margin-top: -3px
 
   > .small
     font-size: .94rem
@@ -78,12 +83,21 @@ $timeframe-section-min-height: 67px
 
 
 .avatar-img-container
-  width: 70px
-  height: 70px
+  $avatar-img-padding: 3px
+  --avatar-img-size: 70px
+  @include a.desktop
+    --avatar-img-size: 85px
+
+  width: var(--avatar-img-size)
+  height: var(--avatar-img-size)
   border-radius: 100%
-  padding: 3px
+  padding: $avatar-img-padding
   background-color: white
   aspect-ratio: 1/1
+
+  > img
+    width: var(--avatar-img-size) - $avatar-img-padding
+    height: var(--avatar-img-size) - $avatar-img-padding
 
 
 .timeframes
@@ -113,20 +127,24 @@ $timeframe-section-min-height: 67px
   flex-basis: 100%
   list-style: none
   text-align: center
-  color: var(--clr-neutral-desaturatedBlue)
   transition: all 200ms
+
+  > .btn
+    color: var(--clr-neutral-desaturatedBlue)
+
+    &.active
+      @extend %menu-active
+
+    &:hover
+      @extend %menu-active
+
 
   @include a.desktop
     width: 100%
     text-align: left
     justify-items: start // override grid-center class
+    font-size: 1.1rem
 
     > .btn
       width: 100%
-
-  &:hover
-    @extend %menu-active
-
-  &.active
-    @extend %menu-active
 </style>
