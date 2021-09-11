@@ -55,7 +55,19 @@ $colors: (
 }
 
 @mixin desktop() {
-  @media screen and (min-width: 920px) {
+  @media screen and (min-width: 1200px) {
+    @content;
+  }
+}
+
+@mixin tablet() {
+  @media screen and (min-width: 780px) {
+    @content;
+  }
+}
+
+@mixin tiny() {
+  @media screen and (max-width: 270px) {
     @content;
   }
 }

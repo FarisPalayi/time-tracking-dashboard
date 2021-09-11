@@ -96,6 +96,7 @@ $time-card-bg-svgs: "work", "play", "study", "exercise", "social", "self-care"
   display: flex
   justify-content: space-between
   align-items: center
+  flex-wrap: wrap
   width: 100%
   margin-bottom: 2px
 
@@ -114,8 +115,9 @@ $time-card-bg-svgs: "work", "play", "study", "exercise", "social", "self-care"
   display: flex
   justify-content: space-between
   align-items: center
+  flex-wrap: wrap
 
-  @include a.desktop
+  @include a.tablet
     flex-direction: column
     align-items: flex-start
     margin-top: 11px

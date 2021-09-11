@@ -31,15 +31,19 @@ html
 
 #app > main 
   width: 100%
-  max-width: 1110px
   display: grid
   justify-content: center
   grid-template-columns: min(var(--card-mobile-width), 380px)
   gap: 30px
 
+  @include a.tablet
+    grid-template-columns: repeat(3, 1fr)
+    max-width: 882px
+
   @include a.desktop
     grid-template-columns: repeat(4, 255px)
     grid-auto-rows: 244px
+    max-width: 1110px
 
 
 h1

@@ -46,13 +46,18 @@ $timeframe-section-min-height: 67px
   border-radius: a.$bd-rs
   overflow: hidden
 
+  @include a.tablet
+    grid-column: 1/4
+
   @include a.desktop
+    grid-column: 1/1
     grid-row: 1/3
 
 
 .avatar-wrapper
   display: flex
   align-items: center
+  flex-wrap: wrap
   min-height: $avatar-wrapper-min-height
   padding: 29px
   background-color: var(--clr-primary-blue)
@@ -101,8 +106,10 @@ $timeframe-section-min-height: 67px
 
 
 .timeframes
-  height: 100% - $avatar-wrapper-min-height
   min-height: $timeframe-section-min-height
+
+  @include a.desktop
+    height: 100% - $avatar-wrapper-min-height
 
 
 .timeframes-list
@@ -111,6 +118,11 @@ $timeframe-section-min-height: 67px
   align-items: center
   height: 100%
   min-height: $timeframe-section-min-height
+
+  @include a.tiny
+    flex-direction: column
+    align-items: flex-start
+    padding: 10px 25px
 
   @include a.desktop
     flex-direction: column
@@ -138,6 +150,13 @@ $timeframe-section-min-height: 67px
     &:hover
       @extend %menu-active
 
+  @include a.tiny
+    padding: 5px
+    width: 100%
+
+    > .btn
+      width: 100%
+      text-align: left
 
   @include a.desktop
     width: 100%
