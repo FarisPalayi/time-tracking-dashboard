@@ -11,7 +11,6 @@ $bold: 500;
 
 // other
 $bd-rs: 13px;
-$card-mobile-width: 91.173%;
 
 // font-family
 $font-primary: rubik, sans-serif;
@@ -47,14 +46,16 @@ $colors: (
   }
 }
 
-:root {
-  @include createCSSColorVariables($colors);
-}
-
 // function used to get nested values from a map
 @function map-deep-get($map, $keys...) {
   @each $key in $keys {
     $map: map-get($map, $key);
   }
   @return $map;
+}
+
+@mixin desktop() {
+  @media screen and (min-width: 920px) {
+    @content;
+  }
 }

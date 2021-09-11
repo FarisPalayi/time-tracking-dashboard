@@ -21,6 +21,8 @@ export interface IData {
 const props = defineProps<{
   data: IData;
 }>();
+
+type timeFrame = "Daily" | "Weekly" | "Monthly";
 </script>
 
 <template lang="pug">
@@ -49,7 +51,7 @@ $primaryColors: a.map-deep-get(a.$colors, "primary")
     background-color: $color
 
 
-// Dynamically add background-image file path in user-card ::before pseudo-element
+// Dynamically add background-image file path in user-card's ::before pseudo-element
 $time-card-bg-svgs: "work", "play", "study", "exercise", "social"
 
 @each $img-name in $time-card-bg-svgs
@@ -60,16 +62,11 @@ $time-card-bg-svgs: "work", "play", "study", "exercise", "social"
       background-image: url(#{$defaultPath}/icon-#{$img-name}.svg)
 
 
-$time-card-bg-img-height: 38px
-
-
 .time-card
   position: relative
-  width: a.$card-mobile-width
-  padding-top: $time-card-bg-img-height
+  padding-top: var(--time-card-bg-img-height)
   border-radius: a.$bd-rs
   background-color: var(--clr-primary-softRed)
-  margin-bottom: 26px
   overflow: hidden
 
   &::before
@@ -77,7 +74,7 @@ $time-card-bg-img-height: 38px
     position: absolute
     top: 0
     width: 100%
-    height: $time-card-bg-img-height
+    height: var(--time-card-bg-img-height)
     background: url(../assets/images/icon-work.svg) no-repeat right 10px center
 
 
@@ -86,6 +83,10 @@ $time-card-bg-img-height: 38px
   padding: 22px
   background-color: var(--clr-neutral-darkBlue)
   border-radius: a.$bd-rs a.$bd-rs 0 0
+  transition: all 250ms
+
+  &:hover
+    background-color: #34397B
 
 
 .time-card-title-wrapper
@@ -103,6 +104,14 @@ $time-card-bg-img-height: 38px
 
 .ellipsis
   all: unset
+  cursor: pointer
+
+  &:focus-visible
+    outline: solid 1.5px currentColor
+    outline-offset: 6px
+
+  > svg
+    display: block
 
 
 .time-section

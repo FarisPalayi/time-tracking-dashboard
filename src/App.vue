@@ -11,6 +11,6 @@ import { data } from "./data/data";
   </main>
 </template>
 
-<style lang="scss">
-@use './assets/sass/global';
+<style lang="sass">
+@use './assets/sass/global'
 </style>

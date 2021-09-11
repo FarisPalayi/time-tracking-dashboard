@@ -24,9 +24,9 @@ section.user-card
       span Jeremy Robson
   .timeframes
     ul.timeframes-list
-      li.timeframes-item(@click="setActive") Daily
-      li.timeframes-item.active(@click="setActive") Weekly
-      li.timeframes-item(@click="setActive") Monthly
+      li.timeframes-item.grid-center(@click="setActive") Daily
+      li.timeframes-item.grid-center.active(@click="setActive") Weekly
+      li.timeframes-item.grid-center(@click="setActive") Monthly
 </template>
 
 <style scoped lang="sass">
@@ -37,12 +37,13 @@ $timeframe-section-min-height: 67px
 
 
 .user-card
-  width: a.$card-mobile-width
   min-height: 200px
   background-color: var(--clr-neutral-darkBlue)
   border-radius: a.$bd-rs
   overflow: hidden
-  margin-bottom: 26px
+
+  @include a.desktop()
+    grid-row: 1/3
 
 
 .avatar-wrapper
@@ -52,12 +53,16 @@ $timeframe-section-min-height: 67px
   padding: 29px
   background-color: var(--clr-primary-blue)
   border-radius: a.$bd-rs
+  gap: 17px
+
+  @include a.desktop()
+    flex-direction: column
+    align-items: flex-start
 
 
 .name
   display: flex
   flex-direction: column
-  padding-left: 17px
 
   > .small
     font-size: .94rem
@@ -85,14 +90,27 @@ $timeframe-section-min-height: 67px
   height: 100%
   min-height: $timeframe-section-min-height
 
+  @include a.desktop()
+    flex-direction: column
+    align-items: flex-start
+    padding: 25px 29px
+
+
+%menu-active
+  font-weight: 400
+  color: var(--clr-neutral-paleBlue)
+
 
 .timeframes-item
   flex-basis: 100%
   list-style: none
   text-align: center
   color: var(--clr-neutral-desaturatedBlue)
+  transition: all 200ms
+
+  &:hover
+    @extend %menu-active
 
   &.active
-    font-weight: 400
-    color: var(--clr-neutral-paleBlue)
+    @extend %menu-active
 </style>
