@@ -38,7 +38,30 @@ section.time-card
 <style scoped lang="sass">
 @use "../assets/sass/abstracts" as a
 
+
+// Dynamically change the user-card's background color by looping through the a.$colors map.
+// Colors will be shown in the order they are defined in the map
+$primaryColors: a.map-deep-get(a.$colors, "primary")
+
+@each $color-name, $color in $primaryColors
+  $i: index($primaryColors, $color-name $color)
+  .time-card:nth-child(#{$i + 1})
+    background-color: $color
+
+
+// Dynamically add background-image file path in user-card ::before pseudo-element
+$time-card-bg-svgs: "work", "play", "study", "exercise", "social"
+
+@each $img-name in $time-card-bg-svgs
+  $defaultPath: "/src/assets/images"
+  $i: index($time-card-bg-svgs, $img-name)
+  .time-card:nth-child(#{$i + 1})
+    &::before
+      background-image: url(#{$defaultPath}/icon-#{$img-name}.svg)
+
+
 $time-card-bg-img-height: 38px
+
 
 .time-card
   position: relative

@@ -19,13 +19,13 @@ $font-primary: rubik, sans-serif;
 // colors
 $colors: (
   primary: (
-    "blue": hsl(246, 80%, 60%),
-    "softBlue": hsl(195, 74%, 62%),
-    "violet": hsl(264, 64%, 52%),
-    "limeGreen": hsl(145, 58%, 55%),
-    "softOrange": hsl(43, 84%, 65%),
     "softRed": hsl(15, 100%, 70%),
+    "softBlue": hsl(195, 74%, 62%),
     "lightRed": hsl(348, 100%, 68%),
+    "limeGreen": hsl(145, 58%, 55%),
+    "violet": hsl(264, 64%, 52%),
+    "softOrange": hsl(43, 84%, 65%),
+    "blue": hsl(246, 80%, 60%),
   ),
   neutral: (
     "veryDarkBlue": hsl(226, 43%, 10%),
@@ -49,4 +49,12 @@ $colors: (
 
 :root {
   @include createCSSColorVariables($colors);
+}
+
+// function used to get nested values from a map
+@function map-deep-get($map, $keys...) {
+  @each $key in $keys {
+    $map: map-get($map, $key);
+  }
+  @return $map;
 }
