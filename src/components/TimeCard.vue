@@ -1,28 +1,24 @@
 <script setup lang="ts">
 import IconEllipsis from "./icons/IconEllipsis.vue";
-// import IData from "../data/data";
+import { computed } from "@vue/reactivity";
 
-interface ITime {
-  current: number;
-  previous: number;
-}
-
-interface ITimeFrames {
-  daily: ITime;
-  weekly: ITime;
-  monthly: ITime;
-}
-
-export interface IData {
-  title: string;
-  timeFrames: ITimeFrames;
-}
+type timeFrame = "daily" | "weekly" | "monthly";
 
 const props = defineProps<{
   data: IData;
+  activeTab: String;
 }>();
 
-type timeFrame = "Daily" | "Weekly" | "Monthly";
+const stats = computed(() => {
+  const currentActiveTab = props.activeTab.toLowerCase() as timeFrame;
+  return props.data.timeFrames[currentActiveTab];
+});
+
+const previousTimeText = computed(() => {
+  if (props.activeTab === "Daily") return "Yesterday";
+  else if (props.activeTab === "Monthly") return "Last Month";
+  else return "Last Week";
+});
 </script>
 
 <template lang="pug">
@@ -33,8 +29,8 @@ section.time-card
       button.ellipsis.btn
         IconEllipsis
     .time-section
-      .current-time {{ data.timeFrames.weekly.current }}hrs
-      .previous-time Last Week - {{ data.timeFrames.weekly.previous }}hrs
+      .current-time {{ stats.current }}hrs
+      .previous-time {{ previousTimeText }} - {{ stats.previous }}hrs
 </template>
 
 <style scoped lang="sass">

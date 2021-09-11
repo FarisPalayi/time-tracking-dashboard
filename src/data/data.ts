@@ -1,19 +1,3 @@
-interface ITime {
-  current: number;
-  previous: number;
-}
-
-interface ITimeFrames {
-  daily: ITime;
-  weekly: ITime;
-  monthly: ITime;
-}
-
-export default interface IData {
-  title: string;
-  timeFrames: ITimeFrames;
-}
-
 export const data: IData[] = [
   {
     title: "Work",

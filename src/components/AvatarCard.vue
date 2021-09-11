@@ -1,10 +1,14 @@
 <script setup lang="ts">
+const emit = defineEmits(["activeTab"]);
+
 const setActive = (e: Event) => {
   const activeClass = "active";
-  const clickedElm = e.target as HTMLButtonElement;
+  const clickedElm = e?.target as HTMLButtonElement;
   const parentElm = clickedElm?.parentElement
     ?.parentElement as HTMLUListElement;
   const childrenCount = parentElm?.childElementCount;
+
+  emit("activeTab", clickedElm?.innerText);
 
   for (let i = 0; i < childrenCount; i++)
     parentElm?.children[i]?.firstElementChild?.classList.remove(activeClass);
