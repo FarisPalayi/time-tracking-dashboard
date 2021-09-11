@@ -24,9 +24,12 @@ section.user-card
       span Jeremy Robson
   .timeframes
     ul.timeframes-list
-      li.timeframes-item.grid-center(@click="setActive") Daily
-      li.timeframes-item.grid-center.active(@click="setActive") Weekly
-      li.timeframes-item.grid-center(@click="setActive") Monthly
+      li.timeframes-item.grid-center(@click="setActive")
+        button.btn Daily
+      li.timeframes-item.grid-center.active(@click="setActive")
+        button.btn Weekly
+      li.timeframes-item.grid-center(@click="setActive")
+        button.btn Monthly
 </template>
 
 <style scoped lang="sass">
@@ -42,7 +45,7 @@ $timeframe-section-min-height: 67px
   border-radius: a.$bd-rs
   overflow: hidden
 
-  @include a.desktop()
+  @include a.desktop
     grid-row: 1/3
 
 
@@ -55,14 +58,19 @@ $timeframe-section-min-height: 67px
   border-radius: a.$bd-rs
   gap: 17px
 
-  @include a.desktop()
+  @include a.desktop
     flex-direction: column
     align-items: flex-start
+    gap: 41px
+    padding: 34px 29px
 
 
 .name
   display: flex
   flex-direction: column
+
+  @include a.desktop
+    font-size: 2rem
 
   > .small
     font-size: .94rem
@@ -90,7 +98,7 @@ $timeframe-section-min-height: 67px
   height: 100%
   min-height: $timeframe-section-min-height
 
-  @include a.desktop()
+  @include a.desktop
     flex-direction: column
     align-items: flex-start
     padding: 25px 29px
@@ -107,6 +115,14 @@ $timeframe-section-min-height: 67px
   text-align: center
   color: var(--clr-neutral-desaturatedBlue)
   transition: all 200ms
+
+  @include a.desktop
+    width: 100%
+    text-align: left
+    justify-items: start // override grid-center class
+
+    > .btn
+      width: 100%
 
   &:hover
     @extend %menu-active

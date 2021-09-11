@@ -30,7 +30,7 @@ section.time-card
   .time-card-main
     .time-card-title-wrapper
       h2.time-card-title {{ data.title }}
-      button.ellipsis
+      button.ellipsis.btn
         IconEllipsis
     .time-section
       .current-time {{ data.timeFrames.weekly.current }}hrs
@@ -103,13 +103,6 @@ $time-card-bg-svgs: "work", "play", "study", "exercise", "social"
 
 
 .ellipsis
-  all: unset
-  cursor: pointer
-
-  &:focus-visible
-    outline: solid 1.5px currentColor
-    outline-offset: 6px
-
   > svg
     display: block
 

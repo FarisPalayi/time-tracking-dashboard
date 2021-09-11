@@ -5,7 +5,7 @@
   @include a.createCSSColorVariables(a.$colors)
   --card-mobile-width: 91.173%
   --time-card-bg-img-height: 38px
-  @include a.desktop()
+  @include a.desktop
     --card-mobile-width: 100%
     --time-card-bg-img-height: 45px
 
@@ -33,7 +33,7 @@ html
   grid-template-columns: var(--card-mobile-width)
   gap: 30px
 
-  @include a.desktop()
+  @include a.desktop
     grid-template-columns: repeat(4, 255px)
     grid-auto-rows: 244px
 
@@ -49,3 +49,11 @@ img
 .grid-center
   display: grid
   place-items: center
+
+.btn
+  all: unset
+  cursor: pointer
+
+  &:focus-visible
+    outline: solid 1.5px currentColor
+    outline-offset: 6px
