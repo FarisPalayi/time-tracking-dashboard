@@ -21,26 +21,26 @@ const setActive = (e: Event) => {
 - const avatarImgPath = "../assets/images/image-jeremy.png";
 
 section.user-card
-  .avatar-wrapper
+  .user-details
     .avatar-img-container
       img(src= avatarImgPath, alt="",width="64", height="64")
     h1.name
       span.small Report for&nbsp;
       span Jeremy Robson
-  .timeframes
-    ul.timeframes-list
-      li.timeframes-item.grid-center
+  .tabs-container
+    ul.tabs-container-ul
+      li.tab-item.grid-center
         button.btn(@click="setActive") Daily
-      li.timeframes-item.grid-center
+      li.tab-item.grid-center
         button.btn.active(@click="setActive") Weekly
-      li.timeframes-item.grid-center
+      li.tab-item.grid-center
         button.btn(@click="setActive") Monthly
 </template>
 
 <style scoped lang="sass">
 @use '../assets/sass/abstracts' as a
 
-$avatar-wrapper-min-height: 66.5%
+$user-details-min-height: 66.5%
 $timeframe-section-min-height: 67px
 
 
@@ -58,11 +58,10 @@ $timeframe-section-min-height: 67px
     grid-row: 1/3
 
 
-.avatar-wrapper
+.user-details
   display: flex
   align-items: center
-  flex-wrap: wrap
-  min-height: $avatar-wrapper-min-height
+  min-height: $user-details-min-height
   padding: 29px
   background-color: var(--clr-primary-blue)
   border-radius: a.$bd-rs
@@ -74,10 +73,17 @@ $timeframe-section-min-height: 67px
     gap: 41px
     padding: 34px 29px
 
+  @media screen and (max-width: 380px)
+    flex-wrap: wrap
+    > .name
+      font-size: 1.3rem
+      white-space: normal
+
 
 .name
   display: flex
   flex-direction: column
+  white-space: nowrap
 
   @include a.desktop
     font-size: 2.5rem
@@ -85,6 +91,7 @@ $timeframe-section-min-height: 67px
     font-weight: a.$light
     margin-left: 2px
     margin-top: -3px
+    white-space: normal
 
   > .small
     font-size: .94rem
@@ -109,19 +116,20 @@ $timeframe-section-min-height: 67px
     height: var(--avatar-img-size) - $avatar-img-padding
 
 
-.timeframes
+.tabs-container
   min-height: $timeframe-section-min-height
 
   @include a.desktop
-    height: 100% - $avatar-wrapper-min-height
+    height: 100% - $user-details-min-height
 
 
-.timeframes-list
+.tabs-container-ul
   display: flex
   justify-content: center
   align-items: center
   height: 100%
   min-height: $timeframe-section-min-height
+  transition: 300ms
 
   @include a.tiny
     flex-direction: column
@@ -139,11 +147,11 @@ $timeframe-section-min-height: 67px
   color: var(--clr-neutral-paleBlue)
 
 
-.timeframes-item
+.tab-item
   flex-basis: 100%
   list-style: none
   text-align: center
-  transition: all 200ms
+  transition: 300ms
 
   > .btn
     color: var(--clr-neutral-desaturatedBlue)

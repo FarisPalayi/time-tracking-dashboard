@@ -29,7 +29,8 @@ section.time-card
       button.ellipsis.btn
         IconEllipsis
     .time-section
-      .current-time {{ stats.current }}hrs
+      transition(name="fade" mode="out-in")
+        .current-time {{ stats.current }}hrs
       .previous-time {{ previousTimeText }} - {{ stats.previous }}hrs
 </template>
 
@@ -79,7 +80,7 @@ $time-card-bg-svgs: "work", "play", "study", "exercise", "social", "self-care"
   padding: 22px
   background-color: var(--clr-neutral-darkBlue)
   border-radius: a.$bd-rs a.$bd-rs 0 0
-  transition: all 250ms
+  transition: background-color 250ms
 
   @include a.desktop
     padding: 25px 32px
@@ -105,6 +106,11 @@ $time-card-bg-svgs: "work", "play", "study", "exercise", "social", "self-care"
 .ellipsis
   > svg
     display: block
+    color: var(--clr-neutral-paleBlue)
+    transition: color 150ms
+
+    &:hover
+      color: white
 
 
 .time-section
@@ -131,4 +137,11 @@ $time-card-bg-svgs: "work", "play", "study", "exercise", "social", "self-care"
 
   @include a.desktop
     font-size: .95rem
+
+
+.fade-enter-active, .fade-leave-active
+  transition: opacity .5s
+
+.fade-enter, .fade-leave-to
+  opacity: 0
 </style>

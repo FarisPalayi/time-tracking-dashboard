@@ -54,19 +54,19 @@ $colors: (
   @return $map;
 }
 
-@mixin desktop() {
+@mixin desktop {
   @media screen and (min-width: 1200px) {
     @content;
   }
 }
 
-@mixin tablet() {
+@mixin tablet {
   @media screen and (min-width: 780px) {
     @content;
   }
 }
 
-@mixin tiny() {
+@mixin tiny {
   @media screen and (max-width: 270px) {
     @content;
   }
