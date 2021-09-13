@@ -1,20 +1,61 @@
 <script setup lang="ts">
-const emit = defineEmits(["activeTab"]);
+import { ref } from "@vue/reactivity";
+import { onMounted } from "@vue/runtime-core";
 
+const emit = defineEmits(["activeTab"]);
+const userDefinedTab = ref("Weekly");
+const tabsContainer = ref<HTMLUListElement | null>(null);
+
+// prettier-ignore
 const setActive = (e: Event) => {
   const activeClass = "active";
   const clickedElm = e?.target as HTMLButtonElement;
-  const parentElm = clickedElm?.parentElement
-    ?.parentElement as HTMLUListElement;
+  const clickedElmText = clickedElm.innerText;
+  const parentElm = clickedElm?.parentElement?.parentElement as HTMLUListElement;
   const childrenCount = parentElm?.childElementCount;
 
-  emit("activeTab", clickedElm?.innerText);
+  emit("activeTab", clickedElmText);
+  userDefinedTab.value = clickedElmText
 
-  for (let i = 0; i < childrenCount; i++)
-    parentElm?.children[i]?.firstElementChild?.classList.remove(activeClass);
+  for (let i = 0; i < childrenCount; i++) {
+    const btnElement = parentElm?.children[i]?.firstElementChild;
+    btnElement?.classList.remove(activeClass);
+    btnElement?.setAttribute("tabindex", "0");
+  }
+
+  localStorage.setItem("userDefinedTab", userDefinedTab.value)
 
   clickedElm?.classList.add(activeClass);
+  clickedElm?.setAttribute("tabindex", "-1");
 };
+
+// prettier-ignore
+const switchTabs = () => {
+  const activeClass = "active";
+  const ulElement = tabsContainer?.value as HTMLUListElement;
+
+  const setActiveTab = (elm: HTMLButtonElement, activeClass: string) => {
+    elm?.classList.add(activeClass);
+    elm?.setAttribute("tabindex", "-1");
+  };
+  
+  emit("activeTab", userDefinedTab.value);
+
+  for (let i = 0; i < ulElement.childElementCount; i++) {
+    const btnElement = ulElement?.children[i]?.firstElementChild as HTMLButtonElement;
+    btnElement?.classList.remove(activeClass);
+    btnElement?.setAttribute("tabindex", "0");
+
+    if (userDefinedTab.value === btnElement?.innerText)
+      setActiveTab(btnElement, activeClass);
+  }
+};
+
+onMounted(() => {
+  const tab = localStorage.getItem("userDefinedTab");
+  if (tab) userDefinedTab.value = tab;
+  switchTabs();
+});
 </script>
 
 <template lang="pug">
@@ -28,11 +69,11 @@ section.user-card
       span.small Report for&nbsp;
       span Jeremy Robson
   .tabs-container
-    ul.tabs-container-ul
+    ul.tabs-container-ul(ref="tabsContainer")
       li.tab-item.grid-center
         button.btn(@click="setActive") Daily
       li.tab-item.grid-center
-        button.btn.active(@click="setActive") Weekly
+        button.btn.active(tabindex="-1", @click="setActive") Weekly
       li.tab-item.grid-center
         button.btn(@click="setActive") Monthly
 </template>
@@ -158,6 +199,7 @@ $timeframe-section-min-height: 67px
 
     &.active
       @extend %menu-active
+      pointer-events: none
 
     &:hover
       @extend %menu-active
