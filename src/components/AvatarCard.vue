@@ -4,50 +4,66 @@ import { onMounted } from "@vue/runtime-core";
 
 const emit = defineEmits(["activeTab"]);
 const userDefinedTab = ref("Weekly");
-const tabsContainer = ref<HTMLUListElement | null>(null);
+const tabsContainer = ref<HTMLElement | null>(null);
+const defaultActive = ref<HTMLButtonElement | null>(null);
 
-// prettier-ignore
+const setTabState = (
+  elm: HTMLButtonElement,
+  activeClass: string,
+  setActive = true
+) => {
+  if (setActive) {
+    elm?.classList.add(activeClass);
+    elm?.setAttribute("tabindex", "-1");
+    elm?.setAttribute("aria-selected", "true");
+  } else {
+    elm.classList.remove(activeClass);
+    elm?.setAttribute("tabindex", "0");
+    elm?.setAttribute("aria-selected", "false");
+  }
+};
+
 const setActive = (e: Event) => {
-  const activeClass = "active";
-  const clickedElm = e?.target as HTMLButtonElement;
-  const clickedElmText = clickedElm.innerText;
-  const parentElm = clickedElm?.parentElement?.parentElement as HTMLUListElement;
-  const childrenCount = parentElm?.childElementCount;
+  const activeClass = "active",
+    clickedTab = e?.target as HTMLButtonElement,
+    clickedTabText = clickedTab.innerText,
+    tabContainer = tabsContainer?.value as HTMLDivElement,
+    NoOfTabs = tabContainer?.childElementCount;
 
-  emit("activeTab", clickedElmText);
-  userDefinedTab.value = clickedElmText
+  userDefinedTab.value = clickedTabText;
+  emit("activeTab", userDefinedTab.value);
 
-  for (let i = 0; i < childrenCount; i++) {
-    const btnElement = parentElm?.children[i]?.firstElementChild;
-    btnElement?.classList.remove(activeClass);
-    btnElement?.setAttribute("tabindex", "0");
+  for (let i = 0; i < NoOfTabs; i++) {
+    const btnElement = tabContainer?.children[i] as HTMLButtonElement;
+    setTabState(btnElement, activeClass, false);
   }
 
-  localStorage.setItem("userDefinedTab", userDefinedTab.value)
+  localStorage.setItem("userDefinedTab", userDefinedTab.value);
 
-  clickedElm?.classList.add(activeClass);
-  clickedElm?.setAttribute("tabindex", "-1");
+  setTabState(clickedTab, activeClass);
 };
 
 // prettier-ignore
 const switchTabs = () => {
   const activeClass = "active";
-  const ulElement = tabsContainer?.value as HTMLUListElement;
+  const tabContainer = tabsContainer?.value as HTMLDivElement;
 
-  const setActiveTab = (elm: HTMLButtonElement, activeClass: string) => {
-    elm?.classList.add(activeClass);
-    elm?.setAttribute("tabindex", "-1");
-  };
-  
   emit("activeTab", userDefinedTab.value);
 
-  for (let i = 0; i < ulElement.childElementCount; i++) {
-    const btnElement = ulElement?.children[i]?.firstElementChild as HTMLButtonElement;
-    btnElement?.classList.remove(activeClass);
-    btnElement?.setAttribute("tabindex", "0");
+  for (let i = 0; i < tabContainer.childElementCount; i++) {
+    const btnElement = tabContainer?.children[i] as HTMLButtonElement;
+    setTabState(btnElement, activeClass, false);
 
-    if (userDefinedTab.value === btnElement?.innerText)
-      setActiveTab(btnElement, activeClass);
+    switch(userDefinedTab.value) {
+      case "Daily":
+      case "Weekly":
+      case "Monthly":
+        if (userDefinedTab.value === btnElement?.innerText) setTabState(btnElement, activeClass);
+        break;
+      default:
+        if (defaultActive.value) setTabState(defaultActive.value, activeClass);
+        break;
+    }
   }
 };
 
@@ -60,6 +76,7 @@ onMounted(() => {
 
 <template lang="pug">
 - const avatarImgPath = "../assets/images/image-jeremy.png";
+- const activeTabAttrs = { ref: "defaultActive", tabindex: "-1", role: "tab", "aria-selected": "true", "@click": "setActive" };
 
 section.user-card
   .user-details
@@ -68,14 +85,10 @@ section.user-card
     h1.name
       span.small Report for&nbsp;
       span Jeremy Robson
-  .tabs-container
-    ul.tabs-container-ul(ref="tabsContainer")
-      li.tab-item.grid-center
-        button.btn(@click="setActive") Daily
-      li.tab-item.grid-center
-        button.btn.active(tabindex="-1", @click="setActive") Weekly
-      li.tab-item.grid-center
-        button.btn(@click="setActive") Monthly
+  .tabs-container(ref="tabsContainer", role="tablist", aria-label="timeframes")
+    button.btn.tab(@click="setActive", role="tab") Daily
+    button.btn.tab.active&attributes(activeTabAttrs) Weekly
+    button.btn.tab(@click="setActive", role="tab") Monthly
 </template>
 
 <style scoped lang="sass">
@@ -158,17 +171,9 @@ $timeframe-section-min-height: 67px
 
 
 .tabs-container
-  min-height: $timeframe-section-min-height
-
-  @include a.desktop
-    height: 100% - $user-details-min-height
-
-
-.tabs-container-ul
   display: flex
   justify-content: center
   align-items: center
-  height: 100%
   min-height: $timeframe-section-min-height
   transition: 300ms
 
@@ -181,36 +186,18 @@ $timeframe-section-min-height: 67px
     flex-direction: column
     align-items: flex-start
     padding: 25px 29px
+    height: 100% - $user-details-min-height
 
 
-%menu-active
-  font-weight: 400
-  color: var(--clr-neutral-paleBlue)
-
-
-.tab-item
+.tab
   flex-basis: 100%
   list-style: none
   text-align: center
   transition: 300ms
 
-  > .btn
-    color: var(--clr-neutral-desaturatedBlue)
-
-    &.active
-      @extend %menu-active
-      pointer-events: none
-
-    &:hover
-      @extend %menu-active
-
   @include a.tiny
     padding: 5px
     width: 100%
-
-    > .btn
-      width: 100%
-      text-align: left
 
   @include a.desktop
     width: 100%
@@ -218,6 +205,27 @@ $timeframe-section-min-height: 67px
     justify-items: start // override grid-center class
     font-size: 1.1rem
 
-    > .btn
-      width: 100%
+
+%menu-active
+  font-weight: 400
+  color: var(--clr-neutral-paleBlue)
+
+
+.tab.btn
+  color: var(--clr-neutral-desaturatedBlue)
+
+  &.active
+    @extend %menu-active
+    pointer-events: none
+
+  &:hover,
+  &:focus
+      @extend %menu-active
+
+  @include a.tiny
+    width: 100%
+    text-align: left
+
+  @include a.desktop
+    width: 100%
 </style>

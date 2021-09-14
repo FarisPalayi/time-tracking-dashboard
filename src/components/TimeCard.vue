@@ -1,9 +1,6 @@
 <script setup lang="ts">
 import IconEllipsis from "./icons/IconEllipsis.vue";
-import Vue3autocounter from "vue3-autocounter";
-import { computed, ref } from "@vue/reactivity";
-import { watch } from "@vue/runtime-core";
-// import { gsap } from "gsap";
+import { computed } from "@vue/reactivity";
 
 type timeFrame = "daily" | "weekly" | "monthly";
 
@@ -25,14 +22,14 @@ const previousTimeText = computed(() => {
 </script>
 
 <template lang="pug">
-section.time-card
+section.time-card(role="tabpanel")
   .time-card-main
     .time-card-title-wrapper
       h2.time-card-title {{ data?.title }}
       button.ellipsis.btn
         IconEllipsis
     .time-section
-      Vue3autocounter(ref="counter", class="current-time" :startAmount="0" :endAmount="stats?.current" :duration="1" suffix="hrs")
+      .current-time(v-if="stats") {{ stats?.current }}hrs
       .previous-time {{ previousTimeText }} - {{ stats?.previous }}hrs
 </template>
 
