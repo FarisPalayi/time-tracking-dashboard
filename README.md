@@ -58,6 +58,7 @@ Users should be able to:
 - [Vite](https://vitejs.dev/) - Build tool
 
 ### What I learned
+#### Javascript
 
 - To get the number of the children of an element, `childElementCount` property can be used.
 
