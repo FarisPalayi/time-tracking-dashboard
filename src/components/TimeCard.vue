@@ -1,17 +1,20 @@
 <script setup lang="ts">
 import IconEllipsis from "./icons/IconEllipsis.vue";
-import { computed } from "@vue/reactivity";
+import Vue3autocounter from "vue3-autocounter";
+import { computed, ref } from "@vue/reactivity";
+import { watch } from "@vue/runtime-core";
+// import { gsap } from "gsap";
 
 type timeFrame = "daily" | "weekly" | "monthly";
 
 const props = defineProps<{
-  data: IData;
-  activeTab: String;
+  data?: IData;
+  activeTab?: String;
 }>();
 
 const stats = computed(() => {
-  const currentActiveTab = props.activeTab.toLowerCase() as timeFrame;
-  return props.data.timeFrames[currentActiveTab];
+  const currentActiveTab = props?.activeTab?.toLowerCase() as timeFrame;
+  return props?.data?.timeFrames[currentActiveTab];
 });
 
 const previousTimeText = computed(() => {
@@ -25,13 +28,12 @@ const previousTimeText = computed(() => {
 section.time-card
   .time-card-main
     .time-card-title-wrapper
-      h2.time-card-title {{ data.title }}
+      h2.time-card-title {{ data?.title }}
       button.ellipsis.btn
         IconEllipsis
     .time-section
-      transition(name="fade" mode="out-in")
-        .current-time {{ stats.current }}hrs
-      .previous-time {{ previousTimeText }} - {{ stats.previous }}hrs
+      Vue3autocounter(ref="counter", class="current-time" :startAmount="0" :endAmount="stats?.current" :duration="1" suffix="hrs")
+      .previous-time {{ previousTimeText }} - {{ stats?.previous }}hrs
 </template>
 
 <style scoped lang="sass">
@@ -140,11 +142,4 @@ $time-card-bg-svgs: "work", "play", "study", "exercise", "social", "self-care"
 
   @include a.desktop
     font-size: .95rem
-
-
-.fade-enter-active, .fade-leave-active
-  transition: opacity .5s
-
-.fade-enter, .fade-leave-to
-  opacity: 0
 </style>
