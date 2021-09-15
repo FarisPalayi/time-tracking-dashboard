@@ -1,8 +1,12 @@
 <script setup lang="ts">
 import IconEllipsis from "./icons/IconEllipsis.vue";
-import { computed } from "@vue/reactivity";
+import { computed, ref } from "@vue/reactivity";
+import { watch } from "@vue/runtime-core";
 
 type timeFrame = "daily" | "weekly" | "monthly";
+
+const time = ref<HTMLElement | null>(null);
+const timeAgo = ref<HTMLElement | null>(null);
 
 const props = defineProps<{
   data?: IData;
@@ -19,6 +23,23 @@ const previousTimeText = computed(() => {
   else if (props.activeTab === "Monthly") return "Last Month";
   else return "Last Week";
 });
+
+watch(
+  () => stats.value,
+  () => {
+    const delay = 200;
+    if (!time.value || !timeAgo.value) return;
+
+    time.value.style.transition = `opacity ${delay}ms`;
+    time.value.classList.add("hide");
+    timeAgo.value.classList.add("hide");
+
+    setTimeout(() => {
+      time.value!.classList.remove("hide");
+      timeAgo.value!.classList.remove("hide");
+    }, delay);
+  }
+);
 </script>
 
 <template lang="pug">
@@ -28,9 +49,11 @@ section.time-card(role="tabpanel")
       h2.time-card-title {{ data?.title }}
       button.ellipsis.btn
         IconEllipsis
-    .time-section
-      .current-time(v-if="stats") {{ stats?.current }}hrs
-      .previous-time {{ previousTimeText }} - {{ stats?.previous }}hrs
+    .time-section(ref="timeSection")
+      .current-time(v-if="stats" ref="time")
+        | {{ stats?.current }}hrs
+      .previous-time(ref="timeAgo")
+        | {{ previousTimeText }} - {{ stats?.previous }}hrs
 </template>
 
 <style scoped lang="sass">
