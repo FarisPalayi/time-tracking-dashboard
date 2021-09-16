@@ -139,7 +139,7 @@ export default {
     return { x };
   },
 };
-</script-setup>
+</script>
 
 <template>
   <VComponent>{{ x }}</VComponent>
@@ -166,7 +166,7 @@ const x = ref(0);
 - Ref sugar (currently it is an experimental feature) [proposal]()
 
 <!-- prettier-ignore -->
-```vue
+```js
 import { ref } from 'vue'
 
 const x = ref(0)
@@ -176,7 +176,7 @@ const y = () => x.value + 1
 With `$ref`, the code above can be shorten to this:
 
 <!-- prettier-ignore -->
-```vue
+```js
 let x = $ref(0)
 const y = () => x + 1
 ```
