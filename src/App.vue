@@ -1,13 +1,15 @@
 <script lang="ts" setup>
-import { onMounted, Ref, ref } from "@vue/runtime-core";
+import { onMounted } from "@vue/runtime-core";
 import AvatarCard from "./components/AvatarCard.vue";
 import TimeCard from "./components/TimeCard.vue";
 import { data } from "./data/data";
 import { gsap } from "gsap";
 
-const activeTab: Ref<string> = ref("Weekly");
+let activeTab = $ref("Weekly");
 
-const setActiveTab = (text: string) => (activeTab.value = text);
+const setActiveTab = (text: string) => {
+  if (activeTab) activeTab = text;
+};
 
 const introAnimation = () => {
   gsap

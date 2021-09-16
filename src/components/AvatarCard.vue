@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import { ref } from "@vue/reactivity";
 import { onMounted } from "@vue/runtime-core";
 
 const emit = defineEmits(["activeTab"]);
-const userDefinedTab = ref("Weekly");
-const tabsContainer = ref<HTMLElement | null>(null);
-const defaultActive = ref<HTMLButtonElement | null>(null);
+let userDefinedTab = $ref("Weekly");
+let tabsContainer = $ref<HTMLElement | null>(null);
+let defaultActive = $ref<HTMLButtonElement | null>(null);
 
 const setTabState = (
   elm: HTMLButtonElement,
@@ -27,18 +26,18 @@ const setActive = (e: Event) => {
   const activeClass = "active",
     clickedTab = e?.target as HTMLButtonElement,
     clickedTabText = clickedTab.innerText,
-    tabContainer = tabsContainer?.value as HTMLDivElement,
+    tabContainer = tabsContainer as HTMLDivElement,
     NoOfTabs = tabContainer?.childElementCount;
 
-  userDefinedTab.value = clickedTabText;
-  emit("activeTab", userDefinedTab.value);
+  userDefinedTab = clickedTabText;
+  emit("activeTab", userDefinedTab);
 
   for (let i = 0; i < NoOfTabs; i++) {
     const btnElement = tabContainer?.children[i] as HTMLButtonElement;
     setTabState(btnElement, activeClass, false);
   }
 
-  localStorage.setItem("userDefinedTab", userDefinedTab.value);
+  localStorage.setItem("userDefinedTab", userDefinedTab);
 
   setTabState(clickedTab, activeClass);
 };
@@ -46,22 +45,22 @@ const setActive = (e: Event) => {
 // prettier-ignore
 const switchTabs = () => {
   const activeClass = "active";
-  const tabContainer = tabsContainer?.value as HTMLDivElement;
+  const tabContainer = tabsContainer as HTMLDivElement;
 
-  emit("activeTab", userDefinedTab.value);
+  emit("activeTab", userDefinedTab);
 
   for (let i = 0; i < tabContainer.childElementCount; i++) {
     const btnElement = tabContainer?.children[i] as HTMLButtonElement;
     setTabState(btnElement, activeClass, false);
 
-    switch(userDefinedTab.value) {
+    switch(userDefinedTab) {
       case "Daily":
       case "Weekly":
       case "Monthly":
-        if (userDefinedTab.value === btnElement?.innerText) setTabState(btnElement, activeClass);
+        if (userDefinedTab === btnElement?.innerText) setTabState(btnElement, activeClass);
         break;
       default:
-        if (defaultActive.value) setTabState(defaultActive.value, activeClass);
+        if (defaultActive) setTabState(defaultActive, activeClass);
         break;
     }
   }
@@ -69,7 +68,7 @@ const switchTabs = () => {
 
 onMounted(() => {
   const tab = localStorage.getItem("userDefinedTab");
-  if (tab) userDefinedTab.value = tab;
+  if (tab) userDefinedTab = tab;
   switchTabs();
 });
 </script>

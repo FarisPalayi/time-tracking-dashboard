@@ -1,42 +1,41 @@
 <script setup lang="ts">
 import IconEllipsis from "./icons/IconEllipsis.vue";
-import { computed, ref } from "@vue/reactivity";
 import { watch } from "@vue/runtime-core";
 
 type timeFrame = "daily" | "weekly" | "monthly";
 
-const time = ref<HTMLElement | null>(null);
-const timeAgo = ref<HTMLElement | null>(null);
+let time = $ref<HTMLElement | null>(null);
+let timeAgo = $ref<HTMLElement | null>(null);
 
 const props = defineProps<{
   data?: IData;
   activeTab?: String;
 }>();
 
-const stats = computed(() => {
+let stats = $computed(() => {
   const currentActiveTab = props?.activeTab?.toLowerCase() as timeFrame;
   return props?.data?.timeFrames[currentActiveTab];
 });
 
-const previousTimeText = computed(() => {
+let previousTimeText = $computed(() => {
   if (props.activeTab === "Daily") return "Yesterday";
   else if (props.activeTab === "Monthly") return "Last Month";
   else return "Last Week";
 });
 
 watch(
-  () => stats.value,
+  () => stats,
   () => {
     const delay = 200;
-    if (!time.value || !timeAgo.value) return;
+    if (!time || !timeAgo) return;
 
-    time.value.style.transition = `opacity ${delay}ms`;
-    time.value.classList.add("hide");
-    timeAgo.value.classList.add("hide");
+    time.style.transition = `opacity ${delay}ms`;
+    time.classList.add("hide");
+    timeAgo.classList.add("hide");
 
     setTimeout(() => {
-      time.value!.classList.remove("hide");
-      timeAgo.value!.classList.remove("hide");
+      time!.classList.remove("hide");
+      timeAgo!.classList.remove("hide");
     }, delay);
   }
 );
