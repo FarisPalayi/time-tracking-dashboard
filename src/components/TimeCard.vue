@@ -43,11 +43,11 @@ watch(
 </script>
 
 <template lang="pug">
-section.time-card(role="tabpanel")
+article.time-card(role="tabpanel")
   .time-card-main
     .time-card-title-wrapper
-      h2.time-card-title {{ data?.title }}
-      button.ellipsis.btn
+      h3.time-card-title {{ data?.title }}
+      button.ellipsis.btn(aria-label="more info")
         IconEllipsis
     .time-section(ref="timeSection")
       .current-time(v-if="stats" ref="time")
@@ -67,7 +67,7 @@ $primaryColors: a.map-deep-get(a.$colors, "primary")
 
 @each $color-name, $color in $primaryColors
   $i: index($primaryColors, $color-name $color)
-  .time-card:nth-child(#{$i + 1})
+  .time-card:nth-child(#{$i + 2})
     background-color: $color
     background-image: linear-gradient($color 30%, $time-card-main-bg-color 30%)
 
@@ -78,7 +78,7 @@ $time-card-bg-svgs: "work", "play", "study", "exercise", "social", "self-care"
 @each $img-name in $time-card-bg-svgs
   $defaultPath: "/src/assets/images"
   $i: index($time-card-bg-svgs, $img-name)
-  .time-card:nth-child(#{$i + 1})
+  .time-card:nth-child(#{$i + 2})
     &::before
       background-image: url(#{$defaultPath}/icon-#{$img-name}.svg)
 

@@ -1,17 +1,32 @@
 <script lang="ts" setup>
-import { Ref, ref } from "@vue/runtime-core";
+import { onMounted, Ref, ref } from "@vue/runtime-core";
 import AvatarCard from "./components/AvatarCard.vue";
 import TimeCard from "./components/TimeCard.vue";
 import { data } from "./data/data";
+import { gsap } from "gsap";
 
-let activeTab: Ref<string> = ref("Weekly");
+const activeTab: Ref<string> = ref("Weekly");
 
 const setActiveTab = (text: string) => (activeTab.value = text);
+
+const introAnimation = () => {
+  gsap
+    .timeline()
+    .from(".user-card", { duration: 0.8, opacity: 0 })
+    .from(".time-card", {
+      duration: 1,
+      stagger: 0.1,
+      opacity: 0,
+    });
+};
+
+onMounted(() => introAnimation());
 </script>
 
 <template>
   <main>
     <AvatarCard @active-tab="setActiveTab" />
+    <h2 class="sr-only">{{ activeTab }} status</h2>
     <TimeCard v-for="obj in data" :data="obj" :activeTab="activeTab" />
   </main>
 </template>

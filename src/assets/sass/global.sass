@@ -50,6 +50,13 @@ h1
   font-weight: a.$medium
 
 
+.sr-only
+  opacity: 0 !important
+  width: 0.1px !important
+  height: 0.1px !important
+  position: absolute !important
+
+
 .grid-center
   display: grid
   place-items: center
@@ -60,7 +67,7 @@ h1
   transition: 200ms
 
   &:focus-visible
-    outline: solid 1.5px currentColor
+    outline: solid 1.5px var(--clr-neutral-desaturatedBlue)
     outline-offset: 6px
 
 

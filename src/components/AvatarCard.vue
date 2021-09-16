@@ -218,9 +218,8 @@ $timeframe-section-min-height: 67px
     @extend %menu-active
     pointer-events: none
 
-  &:hover,
-  &:focus
-      @extend %menu-active
+  &:hover
+    @extend %menu-active
 
   @include a.tiny
     width: 100%
@@ -228,4 +227,7 @@ $timeframe-section-min-height: 67px
 
   @include a.desktop
     width: 100%
+
+    &:focus-visible
+      outline-offset: 0px
 </style>
