@@ -13,8 +13,10 @@ This is a solution to the [Time tracking dashboard challenge on Frontend Mentor]
   - [My process](#my-process)
     - [Built with](#built-with)
     - [What I learned](#what-i-learned)
+      - [Javascript](#javascript)
       - [Typescript](#typescript)
       - [SASS/SCSS](#sassscss)
+      - [Vue](#vue)
   - [Project setup](#project-setup)
     - [Install dependencies](#install-dependencies)
     - [Compiles and hot-reloads for development](#compiles-and-hot-reloads-for-development)
@@ -58,6 +60,7 @@ Users should be able to:
 - [Vite](https://vitejs.dev/) - Build tool
 
 ### What I learned
+
 #### Javascript
 
 - To get the number of the children of an element, `childElementCount` property can be used.
@@ -118,6 +121,69 @@ type Y = X & { age: number };
 @include foo; // it can be omitted when calling the mixin too
 ```
 
+#### Vue
+
+- Composition api `setup()` function can be used as a separate script tag. [doc]()
+
+```vue
+<script>
+import { ref } from "@vue";
+import VComponent from "./components/VComponent.vue"
+
+export default {
+  components: {
+    VComponent
+  }
+  setup() {
+    const x = ref(0);
+    return { x };
+  },
+};
+</script-setup>
+
+<template>
+  <VComponent>{{ x }}</VComponent>
+</template>
+```
+
+👆 This can be written like this 👇
+
+```vue
+<script setup>
+import VComponent from "./components/VComponent.vue"
+import { ref } from "@vue";
+
+const x = ref(0);
+</script>
+
+<template>
+  <VComponent>{{ x }}</VComponent>
+</template>
+```
+
+`<script setup>` can be used alongside normal `<script>`
+
+- Ref sugar (currently it is an experimental feature) [proposal]()
+
+<!-- prettier-ignore -->
+```vue
+import { ref } from 'vue'
+
+const x = ref(0)
+const y = () => x.value + 1
+```
+
+With `$ref`, the code above can be shorten to this:
+
+<!-- prettier-ignore -->
+```vue
+let x = $ref(0)
+const y = () => x + 1
+```
+
+Basically, it eliminates the need to use `.value` when using `refs`.
+And since it's a compiler macro, it doesn't need to be imported.
+
 ## Project setup
 
 ### Install dependencies
@@ -141,15 +207,16 @@ yarn build
 ### Recommended IDE Setup
 
 - [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
-- The Vite template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
 
 ## Continued development
 
-I find that when writing asynchronous code in the composition api, I'm running into a lot of problems. So, my next focus will be to read the composition api docs well. And I'm also planning to create some vanilla js, typescript projects.
+I find that when writing asynchronous code with the composition api, I'm running into a lot of problems. So, my next focus will be to read the composition api docs well. And I'm also planning to create some vanilla js, typescript projects.
 
 ## Useful resources
 
-- [Vue 3 docs](https://v3.vuejs.org/) - Vue's official doc is great!
+- [Vue 3 docs](https://v3.vuejs.org/) - Vue's official doc
+- [SFC `<script setup>`](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) - `<script setup>` api reference page
+- [Ref sugar](https://github.com/vuejs/rfcs/discussions/369) - Ref sugar proposal
 
 ## Author
 
