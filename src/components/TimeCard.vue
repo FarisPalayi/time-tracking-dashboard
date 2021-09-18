@@ -95,7 +95,7 @@ $time-card-bg-svgs: "work", "play", "study", "exercise", "social", "self-care"
     top: 0
     width: 100%
     height: var(--time-card-bg-img-height)
-    background: url(../assets/images/icon-work.svg) no-repeat right 10px center
+    background: url(../assets/images/icon-work.svg) no-repeat right 17px top -10px
 
 
 .time-card-main
@@ -158,6 +158,7 @@ $time-card-bg-svgs: "work", "play", "study", "exercise", "social", "self-care"
 
 .previous-time
   font-size: .9rem
+  color: var(--clr-neutral-paleBlue)
 
   @include a.desktop
     font-size: .95rem

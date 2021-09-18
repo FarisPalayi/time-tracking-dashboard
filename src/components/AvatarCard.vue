@@ -184,7 +184,7 @@ $timeframe-section-min-height: 67px
   @include a.desktop
     flex-direction: column
     align-items: flex-start
-    padding: 25px 29px
+    padding: 25px 29px 25px 24px
     height: 100% - $user-details-min-height
 
 
@@ -207,7 +207,7 @@ $timeframe-section-min-height: 67px
 
 %menu-active
   font-weight: 400
-  color: var(--clr-neutral-paleBlue)
+  color: var(--clr-neutral-white)
 
 
 .tab.btn
@@ -226,6 +226,7 @@ $timeframe-section-min-height: 67px
 
   @include a.desktop
     width: 100%
+    padding-left: 5px
 
     &:focus-visible
       outline-offset: 0px
