@@ -13,6 +13,7 @@ This is a solution to the [Time tracking dashboard challenge on Frontend Mentor]
   - [My process](#my-process)
     - [Built with](#built-with)
     - [What I learned](#what-i-learned)
+      - [Git](#git)
       - [Javascript](#javascript)
       - [Typescript](#typescript)
       - [SASS/SCSS](#sassscss)
@@ -62,6 +63,12 @@ Users should be able to:
 
 ### What I learned
 
+#### Git
+- To see all of the commits that changed a specific file: `git log` with the `--follow` flag and filename can be used. [link][4]
+
+```
+git log --follow -- filename
+```
 #### Javascript
 
 - To get the number of the children of an element, `childElementCount` property can be used.
@@ -224,10 +231,12 @@ I find that when writing asynchronous code with the composition api, I'm running
 - [Vue 3 docs][1] - Vue's official doc
 - [SFC `<script setup>`][2] - api reference page
 - [Ref sugar][3] - Ref sugar proposal
+- [How can I list all commits that changed a specific file][4] - Stack overflow
 
 [1]: https://v3.vuejs.org/
 [2]: https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
 [3]: https://github.com/vuejs/rfcs/discussions/369
+[4]: https://stackoverflow.com/questions/3701404/how-can-i-list-all-commits-that-changed-a-specific-file
 
 ## Author
 
