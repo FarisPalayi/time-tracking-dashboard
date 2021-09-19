@@ -18,6 +18,7 @@ This is a solution to the [Time tracking dashboard challenge on Frontend Mentor]
       - [SASS/SCSS](#sassscss)
       - [Vue](#vue)
   - [Project setup](#project-setup)
+    - [Clone the repo locally](#clone-the-repo-locally)
     - [Install dependencies](#install-dependencies)
     - [Compiles and hot-reloads for development](#compiles-and-hot-reloads-for-development)
     - [Compiles and minifies for production](#compiles-and-minifies-for-production)
@@ -56,7 +57,7 @@ Users should be able to:
 - [Pug](https://pugjs.org/) - HTML preprocessor
 - [Sass/Scss](https://sass-lang.com) - CSS preprocessor
 - [Vue3](https://v3.vuejs.org/) - JS framework
-- [Typescript](www.typescriptlang.org) - JS Preprocessor
+- [Typescript](https://www.typescriptlang.org) - JS Preprocessor
 - [Vite](https://vitejs.dev/) - Build tool
 
 ### What I learned
@@ -123,7 +124,7 @@ type Y = X & { age: number };
 
 #### Vue
 
-- Composition api `setup()` function can be used as a separate script tag. [doc]()
+- Composition api `setup()` function can be used as a separate script tag. [doc][2]
 
 ```vue
 <script>
@@ -163,7 +164,7 @@ const x = ref(0);
 
 `<script setup>` can be used alongside normal `<script>`
 
-- Ref sugar (currently it is an experimental feature) [proposal]()
+- Ref sugar (currently it is an experimental feature) [proposal][3]
 
 <!-- prettier-ignore -->
 ```js
@@ -185,6 +186,12 @@ Basically, it eliminates the need to use `.value` when using `refs`.
 And since it's a compiler macro, it doesn't need to be imported.
 
 ## Project setup
+
+### Clone the repo locally
+
+```
+git clone https://github.com/FarisPalayi/time-tracking-dashboard.git
+```
 
 ### Install dependencies
 
@@ -214,9 +221,13 @@ I find that when writing asynchronous code with the composition api, I'm running
 
 ## Useful resources
 
-- [Vue 3 docs](https://v3.vuejs.org/) - Vue's official doc
-- [SFC `<script setup>`](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) - `<script setup>` api reference page
-- [Ref sugar](https://github.com/vuejs/rfcs/discussions/369) - Ref sugar proposal
+- [Vue 3 docs][1] - Vue's official doc
+- [SFC `<script setup>`][2] - api reference page
+- [Ref sugar][3] - Ref sugar proposal
+
+[1]: https://v3.vuejs.org/
+[2]: https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
+[3]: https://github.com/vuejs/rfcs/discussions/369
 
 ## Author
 
