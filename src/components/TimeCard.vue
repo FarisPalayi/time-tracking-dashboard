@@ -42,7 +42,7 @@ watch(
 </script>
 
 <template lang="pug">
-article.time-card(role="tabpanel")
+article
   .time-card-main
     .time-card-title-wrapper
       h3.time-card-title {{ data?.title }}
