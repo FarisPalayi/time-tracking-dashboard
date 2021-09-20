@@ -60,26 +60,39 @@ article.time-card
 
 $time-card-main-bg-color: var(--clr-neutral-darkBlue)
 
-// Dynamically change the user-card's background color by looping through the a.$colors map.
-// Colors will be shown in the order they are defined in the map
+@mixin beforeBgImg($path)
+  &::before 
+    background-image: url(#{$path})
+
+@function fullPath($path, $name, $ext)
+  @return #{$path}#{$name}#{$ext}
+
+// Dynamically change the user-card's background color and 
+// background-image icon by looping through approapriate lists and maps
 $primaryColors: a.map-deep-get(a.$colors, "primary")
+$time-card-bg-svgs: "work", "play", "study", "exercise", "social", "self-care"
 
 @each $color-name, $color in $primaryColors
   $i: index($primaryColors, $color-name $color)
-  .time-card:nth-child(#{$i + 2})
-    background-color: $color
-    background-image: linear-gradient($color 30%, $time-card-main-bg-color 30%)
+  @if $i <= length($time-card-bg-svgs)
 
+    $start-from: 3 // first nth-child value
+    $position: $i + $start-from - 1
+    $repeat: length($time-card-bg-svgs) // how many times a pattern should repeat
+    $icon-name: nth($time-card-bg-svgs, $i)
+    $icon-path: fullPath("/src/assets/images/", icon-#{$icon-name}, ".svg")
 
-// Dynamically add background-image file path in user-card's ::before pseudo-element
-$time-card-bg-svgs: "work", "play", "study", "exercise", "social", "self-care"
+    @if $position < $repeat
+      .time-card:nth-child(#{$repeat}n - #{$repeat - $position})
+        background-color: $color
+        background-image: linear-gradient($color 30%, $time-card-main-bg-color 30%)
+        @include beforeBgImg(#{$icon-path})
 
-@each $img-name in $time-card-bg-svgs
-  $defaultPath: "/src/assets/images"
-  $i: index($time-card-bg-svgs, $img-name)
-  .time-card:nth-child(#{$i + 2})
-    &::before
-      background-image: url(#{$defaultPath}/icon-#{$img-name}.svg)
+    @else
+      .time-card:nth-child(#{$repeat}n + #{$position - $repeat})
+        background-color: $color
+        background-image: linear-gradient($color 30%, $time-card-main-bg-color 30%)
+        @include beforeBgImg(#{$icon-path})
 
 
 .time-card
