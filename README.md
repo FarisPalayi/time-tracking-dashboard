@@ -181,7 +181,7 @@ const x = ref(0)
 const y = () => x.value + 1
 ```
 
-With `$ref`, the code above can be shorten to this:
+With `$ref`, the code above can be shortened to this:
 
 <!-- prettier-ignore -->
 ```js
