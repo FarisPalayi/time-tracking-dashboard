@@ -141,13 +141,19 @@ $time-card-bg-svgs: "work", "play", "study", "exercise", "social", "self-care"
 
 
 .ellipsis
+  color: var(--clr-neutral-paleBlue)
+  padding: 7px
+  margin-right: -7px
+
+  &:hover
+    color: white
+
+  &:focus-visible
+    outline-offset: 0
+
   > svg
     display: block
-    color: var(--clr-neutral-paleBlue)
     transition: color 150ms
-
-    &:hover
-      color: white
 
 
 .time-section
