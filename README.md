@@ -44,7 +44,7 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
+- [Solution URL](https://www.frontendmentor.io/solutions/vue3-pug-sass-typescript-vite-time-tracking-dashboard-page-mgVYqdkHs)
 - [Live Site](https://time-tracking-dashboard.vercel.app)
 
 ## My process
